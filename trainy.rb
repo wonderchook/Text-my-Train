@@ -1,5 +1,7 @@
+require 'rubygems'
 require 'yaml'
-
+require 'net/http'
+require 'json'
 
 class Trainy
 
@@ -8,9 +10,8 @@ class Trainy
 	@api_key = config["config"]["metro_api"]
   end
   
-  def next_train()
-  #http://api.wmata.com/StationPrediction.svc/json/GetPrediction/A10,A11?api_key=YOUR_API_KEY
-  
+  def next_train(station_id)
+	return Net::HTTP.get("api.wmata.com", "/StationPrediction.svc/json/GetPrediction/" + station_id + "?api_key=" + @api_key)
   end
 
 
